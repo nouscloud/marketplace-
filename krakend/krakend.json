@@ -1,0 +1,128 @@
+{
+    "version": 3,
+    "name": "Agent Marketplace Gateway",
+    "port": 8080,
+    "cache_ttl": "3600s",
+    "timeout": "3000ms",
+    "endpoints": [
+      {
+        "endpoint": "/api/agents",
+        "method": "GET",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents"
+          }
+        ],
+        "extra_config": {
+          "github.com/devopsfaith/krakend-jose/validator": {
+            "alg": "RS256",
+            "jwk-url": "http://localhost:8081/realms/agent-marketplace/protocol/openid-connect/certs",
+            "roles_key": "realm_access.roles",
+            "audience": ["krakend-gateway"],
+            "disable_jwk_security": false
+          }
+        }
+      },
+      {
+        "endpoint": "/api/agents",
+        "method": "POST",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/agents/search",
+        "method": "GET",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents/search"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/agents/my-agents",
+        "method": "GET",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents/my-agents"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/agents/{id}",
+        "method": "PUT",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents/{id}"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/agents/{id}",
+        "method": "DELETE",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/agents/{id}"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/users",
+        "method": "GET",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/users"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/users",
+        "method": "POST",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/users"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/auth/register",
+        "method": "POST",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/auth/register"
+          }
+        ]
+      },
+      {
+        "endpoint": "/api/auth/login",
+        "method": "POST",
+        "output_encoding": "json",
+        "backend": [
+          {
+            "host": ["http://host.docker.internal:5000"],
+            "url_pattern": "/api/auth/login"
+          }
+        ]
+      }
+    ]
+  }
